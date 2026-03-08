@@ -25,30 +25,30 @@ export class UpsMapper {
             Name: 'Recipient',
             Address: {
               AddressLine: ['Destination Street'],
-              // City: dto.destinationCity || '',
-              // StateProvinceCode: dto.destinationStateCode || '',
-              // PostalCode: dto.destinationZip,
               CountryCode: dto.destinationCountryCode || 'US',
             },
           },
           Service: {
             Code: dto.serviceCode || '', // Defaults to "Shop"
           },
-          Package: {
-            PackagingType: {
-              Code: '02',
-            },
-            Dimensions: {
-              UnitOfMeasurement: { Code: 'IN' },
-              Length: (dto.length || 1).toString(),
-              Width: (dto.width || 1).toString(),
-              Height: (dto.height || 1).toString(),
-            },
-            PackageWeight: {
-              UnitOfMeasurement: { Code: 'LBS' },
-              Weight: dto.weight.toString(),
-            },
-          },
+          Package: [
+            {
+              PackagingType: {
+                Code: '02',
+                Description: 'Customer Supplied',
+              },
+              Dimensions: {
+                UnitOfMeasurement: { Code: 'IN' },
+                Length: (dto.length || '1').toString(),
+                Width: (dto.width || '1').toString(),
+                Height: (dto.height || '1').toString(),
+              },
+              PackageWeight: {
+                UnitOfMeasurement: { Code: 'LBS' },
+                Weight: dto.weight.toString(),
+              },
+            }
+          ],
         },
       },
     };
@@ -61,9 +61,7 @@ export class UpsMapper {
     // normalize it into an array so .map does not fail.
     const shipmentList = Array.isArray(shipments) ? shipments : [shipments];
 
-    // Filter out any undefined/null entries just in case
     return shipmentList
-      .filter(Boolean)
       .map((rate) => ({
         carrier: 'UPS',
         serviceCode: rate.Service?.Code, //can be used on the frontend to display the service name
