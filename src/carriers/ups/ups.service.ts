@@ -3,7 +3,7 @@ import { HttpService } from '@nestjs/axios';
 import { UpsAuthService } from './ups.auth.service';
 import { UpsMapper } from './ups.mapper';
 import { RateRequestDto } from '../../shipping/dto/rateRequest.dto';
-import { mockNetworkRequest } from 'src/utils/mockHttpservice';
+import { mockNetworkRequest } from '../../utils/mockHttpservice';
 import { UpsRateResponse } from './ups.interface';
 
 @Injectable()
