@@ -5,6 +5,7 @@ import { UpsModule } from './carriers/ups/ups.module';
 import { CacheModule } from '@nestjs/cache-manager';
 import { ConfigModule } from '@nestjs/config';
 import { ShippingModule } from './shipping/shipping.module';
+import { FedexModule } from './carriers/fedex/fedex.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { ShippingModule } from './shipping/shipping.module';
       ttl: 3600, // using nestjs in-memory cache for now. Redis would be better in production.
     }),
     ShippingModule,
+    FedexModule,
   ],
   controllers: [AppController],
   providers: [AppService],

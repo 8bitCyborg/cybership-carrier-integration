@@ -16,6 +16,6 @@ export class ShippingController {
   @Post('rates')
   @UsePipes(new ValidationPipe({ whitelist: true, transform: true }))
   async getRates(@Body() rateRequestDto: RateRequestDto) {
-    return this.shippingService.getRates(rateRequestDto);
+    return this.shippingService.getRatesByCarrier(rateRequestDto);
   };
 };

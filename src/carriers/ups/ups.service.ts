@@ -5,9 +5,10 @@ import { UpsMapper } from './ups.mapper';
 import { RateRequestDto } from '../../shipping/dto/rateRequest.dto';
 import { mockNetworkRequest } from '../../utils/mockHttpservice';
 import { UpsRateResponse } from './ups.interface';
+import { CarrierService } from '../../shipping/interfaces/carrier-service.interface';
 
 @Injectable()
-export class UpsService {
+export class UpsService implements CarrierService {
   private readonly logger = new Logger(UpsService.name);
 
   constructor(
