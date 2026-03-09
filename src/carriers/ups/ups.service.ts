@@ -4,6 +4,8 @@ import { firstValueFrom } from 'rxjs';
 import { UpsAuthService } from './ups.auth.service';
 import { UpsMapper } from './ups.mapper';
 import { RateRequestDto } from '../../shipping/dto/rateRequest.dto';
+import { mockNetworkRequest } from 'src/utils/mockHttpservice';
+import { UpsRateResponse } from './ups.interface';
 
 @Injectable()
 export class UpsService {
@@ -28,26 +30,11 @@ export class UpsService {
     const url = `${process.env.UPS_BASE_URL}/api/rating/v1/rates/${requestOption}`;
 
     try {
-      const { data } = await firstValueFrom(
-        this.httpService.post(url, payload, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-            'Content-Type': 'application/json',
-            transId: `CYBER-${Date.now()}`, //unique id for request.
-            transactionSrc: 'Cybership',
-          },
-        }),
-      );
-
+      const { data } = await mockNetworkRequest<UpsRateResponse>(url, payload);
       return this.mapper.upsResponseMapper(data);
 
     } catch (error) {
       this.logger.error(`UPS API Error: ${error.message}`);
-
-      /**
-       * REQUIREMENT #6: Meaningful Error Handling
-       * UPS nests errors inside response.data.errors[0].message
-       */
       const upsError = error.response?.data?.errors?.[0]?.message
         || 'The UPS service is temporarily unavailable or the address is invalid.';
 

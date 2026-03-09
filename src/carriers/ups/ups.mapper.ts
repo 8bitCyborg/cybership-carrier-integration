@@ -62,9 +62,11 @@ export class UpsMapper {
     const shipmentList = Array.isArray(shipments) ? shipments : [shipments];
 
     return shipmentList
+      .filter((rate) => !!rate)
       .map((rate) => ({
         carrier: 'UPS',
         serviceCode: rate.Service?.Code, //can be used on the frontend to display the service name
+        serviceName: rate.Service?.Description,
         totalAmount: rate.TotalCharges?.MonetaryValue || '0.00',
         currency: rate.TotalCharges?.CurrencyCode || 'USD',
         deliveryDays: rate.GuaranteedDelivery?.BusinessDaysInTransit || 'N/A',

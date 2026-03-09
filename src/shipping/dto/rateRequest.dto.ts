@@ -30,7 +30,7 @@ export class RateRequestDto {
   weight: number;
 
   /**
-   * Optional Dimensions (for ups). Might be required for fedEx or usps, etc. Will probably need to force the FE client to pass these then?
+   * Optional Dimensions (for ups). Might be required for fedEx or usps, etc. Will probably need to force the FE client to pass these then?or
    * If not provided, the Mapper will default these to 1x1x1 to prevent API failure.
    */
   @IsOptional()
@@ -50,8 +50,7 @@ export class RateRequestDto {
 
   // These can be populated as hidden fields in the web-client.
   @IsString()
-  @IsNotEmpty()
-  serviceCode: string;
+  serviceCode?: string;
 
   @IsString()
   @IsNotEmpty()
