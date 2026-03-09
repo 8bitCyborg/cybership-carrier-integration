@@ -34,7 +34,7 @@ export async function mockNetworkRequest<T = any>(
       },
     };
   };
-  console.log('Payload', payload); //added here to visualize payload building.
+  console.log('Payload', payload); //added here to visualize request building.
 
   const isAuth = url.includes('auth') || url.includes('/oauth');
   const rateRequestResponse = url.slice(-4) === 'rate' ? groundRateResponse : rateResponse;

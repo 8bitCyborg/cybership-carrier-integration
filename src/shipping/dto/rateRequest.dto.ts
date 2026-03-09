@@ -5,6 +5,7 @@ import {
   IsOptional,
   Min,
 } from 'class-validator';
+import { Type } from 'class-transformer';
 
 //this dto only lists required fields from the ups rate endpoint.
 //to accomodate other carriers, we could expand it to include fields that may be unique to them.
@@ -50,6 +51,7 @@ export class RateRequestDto {
 
   // These can be populated as hidden fields in the web-client.
   @IsString()
+  @IsOptional()
   serviceCode?: string;
 
   @IsString()
@@ -59,4 +61,9 @@ export class RateRequestDto {
   @IsString()
   @IsNotEmpty()
   destinationCountryCode: string;
+
+  //optional. only here to test errorcodes.
+  @IsOptional()
+  @IsNumber()
+  errorCode?: number;
 };
