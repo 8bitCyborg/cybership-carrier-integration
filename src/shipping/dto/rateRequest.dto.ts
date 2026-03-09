@@ -31,7 +31,7 @@ export class RateRequestDto {
   weight: number;
 
   /**
-   * Optional Dimensions (for ups). Might be required for fedEx or usps, etc. Will probably need to force the FE client to pass these then?or
+   * Optional Dimensions (for ups). Might be required for fedEx or usps, etc. Will probably need to force the FE client to pass these then?
    * If not provided, the Mapper will default these to 1x1x1 to prevent API failure.
    */
   @IsOptional()
